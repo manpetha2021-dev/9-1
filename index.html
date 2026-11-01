@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9 ශ්‍රේණිය භූගෝල විද්‍යාව - 1 වන පාඩම (අර්ධ වාර්ෂික පරීක්ෂණ ආකෘතිය)</title>
+    <style>
+        body {
+            font-family: 'Iskoola Pota', Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .header h2, .header h3 {
+            margin: 5px 0;
+            color: #0056b3;
+        }
+        .timer-box {
+            background: #fffae6;
+            border: 2px solid #ffcc00;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #d9534f;
+        }
+        .student-info {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .student-info input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .question-card {
+            background: #fafbfc;
+            border: 1px solid #e1e4e8;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .question-title {
+            font-weight: bold;
+            font-size: 17px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .options label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        .submit-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn-submit {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+        #result-section {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            background: #e2f0d9;
+            border: 1px solid #c3e6cb;
+            font-size: 18px;
+            text-align: center;
+            font-weight: bold;
+            color: #155724;
+        }
+        .feedback {
+            font-size: 14px;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>දකුණු පළාත් අධ්‍යාපන දෙපාර්තමේන්තුව</h2>
+        <h3>අර්ධ වාර්ෂික පරීක්ෂණය - 9 ශ්‍රේණිය - භූගෝල විද්‍යාව</h3>
+        <p><strong>1 වන පාඩම: ආසියානු ප්‍රදේශය (I කොටස - ප්‍රශ්න 20යි)</strong></p>
+    </div>
+
+    <div class="timer-box" id="timer">ඉතිරි කාලය: විනාඩි 30 : තත්පර 00</div>
+
+    <div class="student-info">
+        <input type="text" id="studentName" placeholder="නම සහ විභාග අංකය ඇතුළත් කරන්න">
+    </div>
+
+    <form id="quizForm">
+
+        <!-- Q01 -->
+        <div class="question-card" data-q="1" data-ans="නැගෙනහිර">
+            <div class="question-title">01. ආසියා මහාද්වීපය පෘථිවියේ උතුරු අර්ධ ගෝලයේ ................. අර්ධයේ පිහිටා ඇත.</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="බටහිර"> (අ) බටහිර</label>
+                <label><input type="radio" name="q1" value="නැගෙනහිර"> (ආ) නැගෙනහිර</label>
+                <label><input type="radio" name="q1" value="දකුණු"> (ඇ) දකුණු</label>
+            </div>
+            <div class="feedback" id="fb1"></div>
+        </div>
+
+        <!-- Q02 -->
+        <div class="question-card" data-q="2" data-ans="සූවස් ඇළ">
+            <div class="question-title">02. ආසියා මහාද්වීපය අප්‍රිකාවෙන් වෙන් වන්නේ ................. මගිනි.</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="සූවස් ඇළ"> (අ) සූවස් ඇළ</label>
+                <label><input type="radio" name="q2" value="පැනමා ඇළ"> (ආ) පැනමා ඇළ</label>
+                <label><input type="radio" name="q2" value="අස්වාන් ඇළ"> (ඇ) අස්වාන් ඇළ</label>
+            </div>
+            <div class="feedback" id="fb2"></div>
+        </div>
+
+        <!-- Q03 -->
+        <div class="question-card" data-q="3" data-ans="චෙරාපුංජි">
+            <div class="question-title">03. ලෝකයේ වැඩිම වර්ෂාපතනයක් ඇති ප්‍රදේශය පිහිටා ඇත්තේ ඉන්දියාවේ මෙඝාල ප්‍රාන්තයේ ................. ය.</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="චෙරාපුංජි"> (අ) චෙරාපුංජි</label>
+                <label><input type="radio" name="q3" value="මයිසූර්"> (ආ) මයිසූර්</label>
+                <label><input type="radio" name="q3" value="කල්කටා"> (ඇ) කල්කටා</label>
+            </div>
+            <div class="feedback" id="fb3"></div>
+        </div>
+
+        <!-- Q04 -->
+        <div class="question-card" data-q="4" data-ans="පාකිස්ථානයේ">
+            <div class="question-title">04. ලෝකයේ විශාලම වාරි මාර්ග පද්ධතිය ඇත්තේ ................. ය.</div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="පාකිස්ථානයේ"> (අ) පාකිස්ථානයේ</label>
+                <label><input type="radio" name="q4" value="ඉන්දියාවේ"> (ආ) ඉන්දියාවේ</label>
+                <label><input type="radio" name="q4" value="ඉරාකයේ"> (ඇ) ඉරාකයේ</label>
+            </div>
+            <div class="feedback" id="fb4"></div>
+        </div>
+
+        <!-- Q05 -->
+        <div class="question-card" data-q="5" data-ans="වගුරුබිම්">
+            <div class="question-title">05. ගං මෝය ප්‍රදේශවල වැලි තැන්පත් වීම නිසාත්, ගංගා පිටාර ගැලීම හේතු කොටගෙන පහත් බිම් වල ජලය රැඳීම නිසා ................. නිර්මාණය වේ.</div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="තැනිතලා"> (අ) තැනිතලා</label>
+                <label><input type="radio" name="q5" value="ගංමෝය"> (ආ) ගංමෝය</label>
+                <label><input type="radio" name="q5" value="වගුරුබිම්"> (ඇ) වගුරුබිම්</label>
+            </div>
+            <div class="feedback" id="fb5"></div>
+        </div>
+
+        <!-- Q06 -->
+        <div class="question-card" data-q="6" data-ans="නිවැරදියි">
+            <div class="question-title">06. ආසියාවේ සාමාන්‍ය ජන ඝනත්වය වර්ග කිලෝමීටරයට 87කි. (නිවැරදි නම් නිවැරදියි, වැරදි නම් වැරදියි ලකුණු කරන්න)</div>
+            <div class="options">
+                <label><input type="radio" name="q6" value="නිවැරදියි"> (අ) නිවැරදියි</label>
+                <label><input type="radio" name="q6" value="වැරදියි"> (ආ) වැරදියි</label>
+            </div>
+            <div class="feedback" id="fb6"></div>
+        </div>
+
+        <!-- Q07 -->
+        <div class="question-card" data-q="7" data-ans="නිවැරදියි">
+            <div class="question-title">07. ටිබෙට් සානුව "ලෝකයේ පියස්ස" ලෙස හඳුන්වනු ලැබේ.</div>
+            <div class="options">
+                <label><input type="radio" name="q7" value="නිවැරදියි"> (අ) නිවැරදියි</label>
+                <label><input type="radio" name="q7" value="වැරදියි"> (ආ) වැරදියි</label>
+            </div>
+            <div class="feedback" id="fb7"></div>
+        </div>
+
+        <!-- Q08 -->
+        <div class="question-card" data-q="8" data-ans="නිවැරදියි">
+            <div class="question-title">08. සර්ඩේරියා හා අමුඩේරියා යන ගංගා ඒරල් මුහුදට ගලා බසින අභ්‍යන්තර ගංගාවෝ වෙති.</div>
+            <div class="options">
+                <label><input type="radio" name="q8" value="නිවැරදියි"> (අ) නිවැරදියි</label>
+                <label><input type="radio" name="q8" value="වැරදියි"> (ආ) වැරදියි</label>
+            </div>
+            <div class="feedback" id="fb8"></div>
+        </div>
+
+        <!-- Q09 -->
+        <div class="question-card" data-q="9" data-ans="වැරදියි">
+            <div class="question-title">09. හොන්ඩා, යමහා, ෂුසුකි, යනු ජපානයේ මෝටර් රථ නිපදවන සමාගම් වේ. (සැ.යු: මේවා මෝටර් සයිකල්/විදුලි උපකරණ වේ)</div>
+            <div class="options">
+                <label><input type="radio" name="q9" value="නිවැරදියි"> (අ) නිවැරදියි</label>
+                <label><input type="radio" name="q9" value="වැරදියි"> (ආ) වැරදියි</label>
+            </div>
+            <div class="feedback" id="fb9"></div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question-card" data-q="10" data-ans="වැරදියි">
+            <div class="question-title">10. ශ්‍රී ලංකාවේ සමස්ථ ජල වහන රටාව අරීය රටාවක් පෙන්වයි.</div>
+            <div class="options">
+                <label><input type="radio" name="q10" value="නිවැරදියි"> (අ) නිවැරදියි</label>
+                <label><input type="radio" name="q10" value="වැරදියි"> (ආ) වැරදියි</label>
+            </div>
+            <div class="feedback" id="fb10"></div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="question-card" data-q="11" data-ans="ශේෂ කඳු">
+            <div class="question-title">11. ඛාදනයට ලක්වී ඉතිරිව ඇති තද පාෂාණ කුට්ටි ................. ලෙස හඳුන්වයි.</div>
+            <input type="text" name="q11" placeholder="ඔබේ පිළිතුර یہاں ලියන්න...">
+            <div class="feedback" id="fb11"></div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="question-card" data-q="12" data-ans="පතන සීග්‍රතාව">
+            <div class="question-title">12. භූමියේ උස අනුව උෂ්ණත්වය අඩු වීම ................. ලෙස හඳුන්වයි.</div>
+            <input type="text" name="q12" placeholder="ඔේ ඔබේ පිළිතුර ලියන්න...">
+            <div class="feedback" id="fb12"></div>
+        </div>
+
+        <!-- Q13 -->
+        <div class="question-card" data-q="13" data-ans="ජනාවාස">
+            <div class="question-title">13. පරිසරයේ කටුක බවින් මිදීමටත් වනසතුන් හා සතුරන්ගෙන් ආරක්ෂා වීමටත් සාමූහිකව ජීවත් වීමටත් මිනිසුන් ඒක රාශි වීමෙන් ................. බිහි වේ.</div>
+            <input type="text" name="q13" placeholder="ඔබේ පිළිතුර ලියන්න...">
+            <div class="feedback" id="fb13"></div>
+        </div>
+
+        <!-- Q14 -->
+        <div class="question-card" data-q="14" data-ans="ඩුබායි">
+            <div class="question-title">14. නිදහස් වෙළෙඳ මධ්‍ය ස්ථානයක් මෙන්ම මැද පෙරදිග ප්‍රධාන අපනයන මධ්‍යස්ථානය වන ජෙබිල් අලි වරාය පිහිටා ඇත්තේ ................. වලය.</div>
+            <input type="text" name="q14" placeholder="ඔබේ පිළිතුර ලියන්න...">
+            <div class="feedback" id="fb14"></div>
+        </div>
+
+        <!-- Q15 -->
+        <div class="question-card" data-q="15" data-ans="බෙංගාල බොක්ක">
+            <div class="question-title">15. ශ්‍රී ලංකාවට බලපාන වාසුලි (මෝසම්) වැසි ඇතිවන්නේ ................. ප්‍රදේශයෙන් ය.</div>
+            <input type="text" name="q15" placeholder="ඔබේ පිළිතුර ලියන්න...">
+            <div class="feedback" id="fb15"></div>
+        </div>
+
+        <!-- Q16 -->
+        <div class="question-card" data-q="16" data-ans="පකිස්ථානයේය">
+            <div class="question-title">16. ආසියාවේ ඉහළම උෂ්ණත්වය පවතින ජාකෝබාබාද් නගරය පිහිටා ඇත්තේ...</div>
+            <div class="options">
+                <label><input type="radio" name="q16" value="ජපානයේය"> (1) ජපානයේය</label>
+                <label><input type="radio" name="q16" value="ඉන්දියාවේය"> (2) ඉන්දියාවේය</label>
+                <label><input type="radio" name="q16" value="පකිස්ථානයේය"> (3) පකිස්ථානයේය</label>
+                <label><input type="radio" name="q16" value="බංගලි දේශයේය"> (4) බංගලි දේශයේය</label>
+            </div>
+            <div class="feedback" id="fb16"></div>
+        </div>
+
+        <!-- Q17 -->
+        <div class="question-card" data-q="17" data-ans="කඳුකර වියළි කලාපයයි">
+            <div class="question-title">17. කඳුකරයේ නැගෙනහිර ප්‍රදේශවල පිහිටා ඇත. වර්ෂාපතනය මිලිමීටර 1750 - 2000 අතර වේ. කඳුකරයේ සුළං මුවාවේ පිහිටා ඇති දේශගුණ කලාපය වන්නේ...</div>
+            <div class="options">
+                <label><input type="radio" name="q17" value="අර්ධ ශුෂ්ක කලාපයයි"> (1) අර්ධ ශුෂ්ක කලාපයයි</label>
+                <label><input type="radio" name="q17" value="කඳුකර වියළි කලාපයයි"> (2) කඳුකර වියළි කලාපයයි</label>
+                <label><input type="radio" name="q17" value="කඳුකර තෙත් කලාපයයි"> (3) කඳුකර තෙත් කලාපයයි</label>
+                <label><input type="radio" name="q17" value="අතරමැදි කලාපයයි"> (4) අතරමැදි කලාපයයි</label>
+            </div>
+            <div class="feedback" id="fb17"></div>
+        </div>
+
+        <!-- Q18 -->
+        <div class="question-card" data-q="18" data-ans="බස්නාහිර පළාතේය">
+            <div class="question-title">18. ශ්‍රී ලංකාවේ ජන සංඛ්‍යාවෙන් 1/4ක් පමණ ඒකරාශී වී ඇත්තේ...</div>
+            <div class="options">
+                <label><input type="radio" name="q18" value="සබරගමු පළාතේය"> (1) සබරගමු පළාතේය</label>
+                <label><input type="radio" name="q18" value="දකුණු පළාතේය"> (2) දකුණු පළාතේය</label>
+                <label><input type="radio" name="q18" value="වයඹ පළාතේය"> (3) වයඹ පළාතේය</label>
+                <label><input type="radio" name="q18" value="බස්නාහිර පළාතේය"> (4) බස්නාහිර පළාතේය</label>
+            </div>
+            <div class="feedback" id="fb18"></div>
+        </div>
+
+        <!-- Q19 -->
+        <div class="question-card" data-q="19" data-ans="92">
+            <div class="question-title">19. ශ්‍රී ලංකාවේ භූ ලක්ෂණ දැක්වීම සඳහා 1 : 50,000 මෙට්‍රික් සිතියම් පත්‍ර කීයක් සකස් කර තිබේද?</div>
+            <div class="options">
+                <label><input type="radio" name="q19" value="108"> (1) 108</label>
+                <label><input type="radio" name="q19" value="92"> (2) 92</label>
+                <label><input type="radio" name="q19" value="95"> (3) 95</label>
+                <label><input type="radio" name="q19" value="85"> (4) 85</label>
+            </div>
+            <div class="feedback" id="fb19"></div>
+        </div>
+
+        <!-- Q20 -->
+        <div class="question-card" data-q="20" data-ans="සිංහරාජය, කන්නෙලිය, මොරපිටිය">
+            <div class="question-title">20. පහතරට තෙත් කලාපීය වනාන්තර ව්‍යාප්තව ඇති ප්‍රදේශ ඇතුළත් පිළිතුර වන්නේ...</div>
+            <div class="options">
+                <label><input type="radio" name="q20" value="සෝමාවතිය, විල්පත්තුව, මාදුරු ඔය"> (1) සෝමාවතිය, විල්පත්තුව, මාදුරු ඔය</label>
+                <label><input type="radio" name="q20" value="කුරුණෑගල, බදුල්ල, මාතලේ"> (2) කුරුණෑගල, බදුල්ල, මාතලේ</label>
+                <label><input type="radio" name="q20" value="සිංහරාජය, කන්නෙලිය, මොරපිටිය"> (3) සිංහරාජය, කන්නෙලිය, මොරපිටිය</label>
+                <label><input type="radio" name="q20" value="හෝර්ටන් තැන්න, සීතා එළිය, අඹේවෙල"> (4) හෝර්ටන් තැන්න, සීතා එළිය, අඹේවෙල</label>
+            </div>
+            <div class="feedback" id="fb20"></div>
+        </div>
+
+        <div class="submit-section">
+            <button type="button" class="btn-submit" onclick="submitQuiz()">පිළිතුරු පෙන්වන්න / ලකුණු ලබා ගන්න</button>
+        </div>
+    </form>
+
+    <div id="result-section"></div>
+</div>
+
+<script>
+    // Timer setup (30 minutes)
+    let timeLeft = 30 * 60;
+    const timerElement = document.getElementById('timer');
+
+    const countdown = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        timerElement.innerHTML = `ඉතිරි කාලය: විනාඩි ${minutes} : තත්පර ${seconds < 10 ? '0' : ''}${seconds}`;
+        
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            alert("කාලය අවසන්! ඔබේ පිළිතුරු ස්වයංක්‍රීයව පරීක්ෂා කෙරේ.");
+            submitQuiz();
+        }
+        timeLeft--;
+    }, 1000);
+
+    function submitQuiz() {
+        clearInterval(countdown);
+        let score = 0;
+        const totalQuestions = 20;
+
+        for (let i = 1; i <= totalQuestions; i++) {
+            const card = document.querySelector(`[data-q="${i}"]`);
+            const correctAns = card.getAttribute('data-ans').trim();
+            const feedback = document.getElementById(`fb${i}`);
+            let userAns = "";
+
+            const radio = card.querySelector('input[type="radio"]:checked');
+            const textInput = card.querySelector('input[type="text"]');
+
+            if (radio) {
+                userAns = radio.value.trim();
+            } else if (textInput) {
+                userAns = textInput.value.trim();
+            }
+
+            // Simple string comparison for grading
+            if (userAns.toLowerCase() === correctAns.toLowerCase()) {
+                score++;
+                feedback.style.color = "green";
+                feedback.innerHTML = "✔ නිවැරදියි!";
+            } else {
+                feedback.style.color = "red";
+                feedback.innerHTML = `✘ වැරදියි. නිවැරදි පිළිතුර: <strong>${correctAns}</strong>`;
+            }
+        }
+
+        const studentName = document.getElementById('studentName').value || "සිසුවා";
+        const resultDiv = document.getElementById('result-section');
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = `ප්‍රතිඵලය: ${studentName}, ඔබ ලබාගත් ලකුණු ප්‍රමාණය ${score} / ${totalQuestions} කි! (${(score/totalQuestions)*100}%)`;
+        
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
